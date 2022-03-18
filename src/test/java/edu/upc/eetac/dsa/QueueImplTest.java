@@ -76,7 +76,7 @@ public class QueueImplTest {
         Assert.assertEquals(1, this.q.size());
 
         String tres = this.q.pop();
-        Integer q = this.q2.pop();
+        //Integer q = this.q2.pop();
         Assert.assertEquals("3", tres);
         Assert.assertEquals(0, this.q.size());
 

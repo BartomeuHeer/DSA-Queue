@@ -1,45 +1,40 @@
 package edu.upc.eetac.dsa;
 import java.util.LinkedList;
 import java.util.List;
-public class QueueImpl<Object> implements Queue<Object>{
-    Object myList;
+public class QueueImpl<E> implements Queue<E>{
+    E[] myArray;
+    //List<E> myList;
     private int count;
-    private int size;
     public QueueImpl(int s){
-        this.size = s;
         this.count = 0;
-        myList = new LinkedList<Object>();
+        myArray = (E[]) new Object[s];
+
     }
     public int size(){
         return count;
     }
     private boolean isFull(){
-        if(count == size)
-            return true;
-        else
-            return false;
+        return count == myArray.length;
     }
-    public void push(Object e) throws FullQueueException{
+    public void push(E e) throws FullQueueException{
         if(this.isFull())
             throw new FullQueueException();
         else{
-            this.myList.add(e);
+            this.myArray[count] = e;
             this.count++;
         }
     }
-    public Object pop() throws EmptyQueueException{
-        Object o;
+    public E pop() throws EmptyQueueException{
+        E element;
         if(count == 0)
             throw new EmptyQueueException();
         else {
-            o = myList.get(0);
-            this.myList.add(0,null);
-            for(int i = 0; i < count-1; i++){
-                myList.add(i,myList.get(i+1));
-            }
-            myList.remove(count-1);
+            element = myArray[0];
+            for(int i = 0; i < count-1; i++)
+                myArray[i] = myArray[i+1];
+            myArray[count-1]=null;
             count--;
         }
-        return o;
+        return element;
     }
 }
